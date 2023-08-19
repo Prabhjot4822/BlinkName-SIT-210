@@ -2,7 +2,7 @@
 const int ledPin = 13; // You can change this to your desired pin
 
 // Define the push button pin
-const int buttonPin = 2; // You can change this to your desired pin
+const int buttonPin = A7; // You can change this to your desired pin
 
 // Morse code dictionary (letters A-Z)
 const char* morseCode[] = 
@@ -41,12 +41,12 @@ bool blinking = false; // Flag to track if blinking is ongoing
 void setup() 
 {
   pinMode(ledPin, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP);
+  pinMode(buttonPin, INPUT_PULLDOWN);
 }
 
 void loop() 
 {
-  if (digitalRead(buttonPin) == LOW) 
+  if (digitalRead(buttonPin) == HIGH) 
   {
     // Button is pressed, start/reset blinking
     blinking = !blinking;
@@ -54,6 +54,7 @@ void loop()
     delay(300); // Debounce delay
   }
   
+  if(blinking){
   blinkMorseCode(".--.");  // P
   delay(1000);
   blinkMorseCode(".-.");   // R
@@ -68,7 +69,8 @@ void loop()
   delay(1000);
   blinkMorseCode("-");     // T
 
-  delay(3000); // Gap between repeating name autometically
+  blinking = !blinking;
+  }
 }
 
 void blinkMorseCode(const char* code) 
