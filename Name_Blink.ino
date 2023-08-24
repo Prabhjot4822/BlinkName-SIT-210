@@ -38,7 +38,7 @@ const char* morseCode[] =
 int currentLetter = 0; // Index of the current letter being blinked
 bool blinking = false; // Flag to track if blinking is ongoing
 
-void setup() 
+void setup() // This will set LED as output and button as input
 {
   pinMode(ledPin, OUTPUT);
   pinMode(buttonPin, INPUT_PULLDOWN);
@@ -46,6 +46,7 @@ void setup()
 
 void loop() 
 {
+  // This will check if the button is pressed or not
   if (digitalRead(buttonPin) == HIGH) 
   {
     // Button is pressed, start/reset blinking
@@ -53,7 +54,8 @@ void loop()
     currentLetter = 0;
     delay(300); // Debounce delay
   }
-  
+
+  // If button is pressed then given morse code will execute.
   if(blinking){
   blinkMorseCode(".--.");  // P
   delay(1000);
@@ -75,6 +77,7 @@ void loop()
 
 void blinkMorseCode(const char* code) 
 {
+  // This for loop will iterate through the given morse code and then blink LED accordingly.
   for (int i = 0; code[i] != '\0'; i++) 
   {
     if (code[i] == '.') 
